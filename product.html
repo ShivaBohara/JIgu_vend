@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jigu Vend</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="header">
+    <h1>Jigu Vend</h1>
+    <p id="machine-label">Machine: --</p>
+  </header>
+
+  <!-- This stays EMPTY in the HTML.
+       JavaScript (render.js) will fill this with product cards
+       based on which machine ID is in the URL. -->
+  <main id="product-grid" class="product-grid">
+    <!-- product cards get injected here -->
+  </main>
+
+  <p id="no-products-message" class="hidden">No products found for this machine.</p>
+
+  <!-- Load order matters:
+       1. productdata.js  -> defines machineProducts (the data)
+       2. render.js       -> defines the function that builds cards
+       3. main.js         -> runs the logic (reads URL, calls render) -->
+  <script src="js/productdata.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
