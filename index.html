@@ -4,27 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jigu Vend</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <header class="header">
-    <h1>Jigu Vend</h1>
-    <p>Smart Vending — Scan. Select. Collect.</p>
-  </header>
+  <main class="landing">
+    <h1 class="logo">Jigu <span>Vend</span></h1>
+    <p class="tagline">SCAN · SELECT · COLLECT</p>
 
-  <!-- This page is NOT what customers see after scanning a QR.
-       QR codes point directly to product.html?machine=vmXXX
+    <p class="instruction">
+      Find a Jigu Vend machine near you, scan the QR code on the front,
+      and your phone will open straight to that machine's products.
+    </p>
 
-       This page exists for YOU right now, so you can quickly
-       test all 3 machines during development without typing
-       the URL by hand every time. -->
-
-  <main style="text-align:center; margin-top:40px;">
-    <h2>Testing Links (dev use only)</h2>
-    <p style="margin:15px 0;"><a href="product.html?machine=vm001">Machine 1 — Snacks & Drinks</a></p>
-    <p style="margin:15px 0;"><a href="product.html?machine=vm002">Machine 2 — Stationery</a></p>
-    <p style="margin:15px 0;"><a href="product.html?machine=vm003">Machine 3 — Essentials</a></p>
+    <!-- Dev-only testing shortcuts. Not part of the customer flow —
+         customers always arrive here by scanning a physical QR code. -->
+    <div class="dev-links">
+      <a href="product.html?machine=vm001">vm001</a>
+      <a href="product.html?machine=vm002">vm002</a>
+      <a href="product.html?machine=vm003">vm003</a>
+    </div>
   </main>
 
 </body>

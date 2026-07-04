@@ -4,8 +4,16 @@
 
 // Step 1: Read the machine ID from the URL
 // Example URL this expects: product.html?machine=vm001
+// (case-insensitive: ?machine= or ?Machine= both work, and the
+//  machine ID itself is lowercased so "VM001" still matches "vm001")
 const params = new URLSearchParams(window.location.search);
-const machineId = params.get("machine");
+let machineId = null;
+for (const [key, value] of params) {
+  if (key.toLowerCase() === "machine") {
+    machineId = value.toLowerCase();
+    break;
+  }
+}
 
 // Step 2: Update the header label so we can visually confirm which machine loaded
 const machineLabel = document.getElementById("machine-label");

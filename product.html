@@ -3,29 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jigu Vend</title>
+  <title>Jigu Vend — Scan. Select. Collect.</title>
+  <meta name="description" content="Scan the QR code on any Jigu Vend machine to browse products and pay right from your phone.">
+
+  <!-- Social/WhatsApp link preview card -->
+  <meta property="og:title" content="Jigu Vend">
+  <meta property="og:description" content="Scan. Select. Collect. Smart vending, no touchscreen needed.">
+  <meta property="og:image" content="https://qrbasedvend.netlify.app/assets/image/og-preview.png">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" type="image/png" href="assets/image/favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
   <header class="header">
-    <h1>Jigu Vend</h1>
-    <p id="machine-label">Machine: --</p>
+    <h1>Jigu <span>Vend</span></h1>
+    <p id="machine-label">machine: --</p>
   </header>
 
   <!-- This stays EMPTY in the HTML.
-       JavaScript (render.js) will fill this with product cards
-       based on which machine ID is in the URL. -->
+       JavaScript (render.js) fills this with product cards
+       based on the machine ID in the URL. -->
   <main id="product-grid" class="product-grid">
     <!-- product cards get injected here -->
   </main>
 
   <p id="no-products-message" class="hidden">No products found for this machine.</p>
 
-  <!-- Load order matters:
-       1. productdata.js  -> defines machineProducts (the data)
-       2. render.js       -> defines the function that builds cards
-       3. main.js         -> runs the logic (reads URL, calls render) -->
   <script src="js/productdata.js"></script>
   <script src="js/render.js"></script>
   <script src="js/main.js"></script>

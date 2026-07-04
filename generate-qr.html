@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Jigu Vend — QR Generator</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 30px;
+      text-align: center;
+    }
+    h1 { margin-bottom: 5px; }
+    p.subtitle { color: #666; margin-bottom: 30px; }
+
+    /* IMPORTANT: change this to YOUR laptop's local IP + folder path
+       Find your IP using "ipconfig" in Command Prompt (look for IPv4 Address) */
+    .base-url-note {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      padding: 10px;
+      max-width: 500px;
+      margin: 0 auto 30px auto;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+
+    .machines {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .machine-card {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      width: 220px;
+    }
+    .qr-box { margin: 15px auto; display: flex; justify-content: center; }
+    .machine-card h3 { margin-bottom: 5px; }
+    .machine-card p { font-size: 12px; color: #888; word-break: break-all; margin-bottom: 10px; }
+    .download-btn {
+      display: inline-block;
+      padding: 8px 16px;
+      background: #2a7a2a;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Jigu Vend — QR Code Generator</h1>
+  <p class="subtitle">Generate a QR code for each vending machine (dev tool — not customer-facing)</p>
+
+  <div class="base-url-note">
+    ⚠️ Update <code>BASE_URL</code> at the top of the script below to match your laptop's
+    local IP address (from <code>ipconfig</code>) before generating QR codes for phone testing.
+  </div>
+
+  <div class="machines" id="machine-list"></div>
+
+  <script>
+    // ============================================
+    // STEP 1: SET YOUR BASE URL HERE
+    // For local testing (same WiFi): use your laptop's IP address
+    //   Example: "https://qrbasedvend.netlify.app"
+    // Later, once hosted online, replace with your real domain:
+    //   Example: "https://jiguvend.com"
+    // ============================================
+    const BASE_URL = "https://qrbasedvend.netlify.app"; // <-- CHANGE THIS
+
+    const machines = [
+      { id: "vm001", label: "Machine 1 — Snacks" },
+      { id: "vm002", label: "Machine 2 — Stationery" },
+      { id: "vm003", label: "Machine 3 — Essentials" },
+    ];
+
+    const container = document.getElementById("machine-list");
+
+    machines.forEach(function (machine) {
+      const fullUrl = `${BASE_URL}/product.html?machine=${machine.id}`;
+
+      const card = document.createElement("div");
+      card.className = "machine-card";
+      card.innerHTML = `
+        <h3>${machine.label}</h3>
+        <p>${fullUrl}</p>
+        <div class="qr-box" id="qr-${machine.id}"></div>
+        <button class="download-btn" onclick="downloadQR('${machine.id}')">Download PNG</button>
+      `;
+      container.appendChild(card);
+
+      // Generate the actual QR code into the qr-box div
+      new QRCode(document.getElementById(`qr-${machine.id}`), {
+        text: fullUrl,
+        width: 150,
+        height: 150,
+      });
+    });
+
+    // Downloads the generated QR as a PNG file
+    function downloadQR(machineId) {
+      const qrBox = document.getElementById(`qr-${machineId}`);
+      const canvas = qrBox.querySelector("canvas");
+      const link = document.createElement("a");
+      link.download = `${machineId}-qr.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
+  </script>
+
+</body>
+</html>
