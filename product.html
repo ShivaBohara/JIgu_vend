@@ -35,7 +35,15 @@
 
   <p id="no-products-message" class="hidden">No products found for this machine.</p>
 
+  <!-- Floating cart bar — hidden until at least 1 item is added -->
+  <a id="cart-bar" href="cart.html" class="cart-bar hidden">
+    <span id="cart-bar-count">0 items</span>
+    <span id="cart-bar-total">Rs. 0</span>
+    <span class="cart-bar-cta">View Cart →</span>
+  </a>
+
   <script src="js/productdata.js"></script>
+  <script src="js/cart.js"></script>
   <script src="js/render.js"></script>
   <script src="js/main.js"></script>
 

@@ -2,10 +2,8 @@
 // This file's ONE job: take a list of products, turn each one into
 // an HTML "card", and inject them into the page.
 
-function renderProducts(products) {
+function renderProducts(products, machineId) {
   const grid = document.getElementById("product-grid");
-
-  // Clear anything already in the grid (important if this ever re-runs)
   grid.innerHTML = "";
 
   products.forEach(function (product, index) {
@@ -31,10 +29,29 @@ function renderProducts(products) {
       <h3 class="product-name">${product.name}</h3>
       <p class="product-price">Rs. ${product.price}</p>
       <p class="product-stock">${isSoldOut ? "Sold out" : product.stock + " left"}</p>
-      <button class="buy-btn" ${isSoldOut ? "disabled" : ""}>
-        ${isSoldOut ? "Unavailable" : "Buy"}
-      </button>
+      <div class="card-actions">
+        <button class="add-cart-btn" ${isSoldOut ? "disabled" : ""}>Add to Cart</button>
+        <button class="buy-now-btn" ${isSoldOut ? "disabled" : ""}>Buy Now</button>
+      </div>
     `;
+
+    if (!isSoldOut) {
+      const addBtn = card.querySelector(".add-cart-btn");
+      const buyBtn = card.querySelector(".buy-now-btn");
+
+      // "Add to Cart" — adds it, customer keeps browsing
+      addBtn.addEventListener("click", function () {
+        addToCart(machineId, product);
+        addBtn.textContent = "Added ✓";
+        setTimeout(function () { addBtn.textContent = "Add to Cart"; }, 800);
+      });
+
+      // "Buy Now" — adds it, then jumps straight to the cart/checkout page
+      buyBtn.addEventListener("click", function () {
+        addToCart(machineId, product);
+        window.location.href = "cart.html?machine=" + machineId;
+      });
+    }
 
     grid.appendChild(card);
   });

@@ -28,5 +28,7 @@ if (!machineId || !productsToShow || productsToShow.length === 0) {
   document.getElementById("no-products-message").classList.remove("hidden");
 } else {
   // Step 5: Hand off to render.js to actually build and show the product cards
-  renderProducts(productsToShow);
+  renderProducts(productsToShow, machineId);
+  // Step 6: Show the floating cart bar if items were already added previously
+  updateCartBar(machineId);
 }

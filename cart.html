@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart — Jigu Vend</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="header">
+    <h1>Jigu <span>Vend</span></h1>
+    <p id="machine-label">machine: --</p>
+  </header>
+
+  <main class="cart-page">
+    <div id="cart-items"></div>
+  </main>
+
+  <!-- Fixed bottom bar with total + checkout button, only shown when cart has items -->
+  <div id="checkout-bar" class="checkout-bar hidden">
+    <div>
+      <span class="total-label">Total</span>
+      <span id="checkout-total" class="total-amount">Rs. 0</span>
+    </div>
+    <button class="checkout-btn" onclick="goToCheckout()">Proceed to Pay</button>
+  </div>
+
+  <script src="js/cart.js"></script>
+  <script>
+    // Read machine ID the same way product.html does
+    const params = new URLSearchParams(window.location.search);
+    const machineId = (params.get("machine") || "").toLowerCase();
+    document.getElementById("machine-label").textContent = "Machine: " + (machineId || "unknown");
+
+    function renderCartPage() {
+      const cart = getCart(machineId);
+      const container = document.getElementById("cart-items");
+      const checkoutBar = document.getElementById("checkout-bar");
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="cart-empty">
+            Your cart is empty.<br>
+            <a href="product.html?machine=${machineId}" class="back-btn">← Back to products</a>
+          </div>
+        `;
+        checkoutBar.classList.add("hidden");
+        return;
+      }
+
+      container.innerHTML = "";
+      cart.forEach(function (item) {
+        const row = document.createElement("div");
+        row.className = "cart-item";
+        row.innerHTML = `
+          <img
+            src="${item.image}"
+            alt="${item.name}"
+            class="cart-item-image"
+            onerror="this.onerror=null; this.src='assets/image/placeholder.png';"
+          >
+          <div class="cart-item-info">
+            <p class="cart-item-name">${item.name}</p>
+            <p class="cart-item-price">Rs. ${item.price} each</p>
+          </div>
+          <div class="qty-stepper">
+            <button onclick="handleQtyChange('${item.slot}', -1)">−</button>
+            <span>${item.qty}</span>
+            <button onclick="handleQtyChange('${item.slot}', 1)">+</button>
+          </div>
+          <p class="cart-item-subtotal">Rs. ${item.price * item.qty}</p>
+        `;
+        container.appendChild(row);
+      });
+
+      checkoutBar.classList.remove("hidden");
+      document.getElementById("checkout-total").textContent = "Rs. " + getCartTotal(machineId);
+    }
+
+    function handleQtyChange(slot, delta) {
+      changeQty(machineId, slot, delta);
+      renderCartPage();
+    }
+
+    function goToCheckout() {
+      // Checkout/payment isn't built yet — this is the handoff point
+      // to the backend + payment gateway integration (next step).
+      alert("Checkout coming soon — payment integration is the next step!");
+    }
+
+    renderCartPage();
+  </script>
+
+</body>
+</html>
