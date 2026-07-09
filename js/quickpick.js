@@ -6,7 +6,7 @@
 //    to the admin panel — no separate "owner" button needed.
 
 // ⚠️ Must match the API_BASE used in admin.js
-const QUICKPICK_API_BASE = "http://localhost:5000";
+const QUICKPICK_API_BASE = API_BASE;
 
 function initQuickPick(machineId) {
   const fab = document.getElementById("quickpick-fab");
