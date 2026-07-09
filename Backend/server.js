@@ -6,7 +6,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const Product = require("./models/Product");
+const Product = require("./models/product");
 
 const app = express();
 app.use(cors());        // allows your Netlify frontend to call this server
