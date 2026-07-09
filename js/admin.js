@@ -3,7 +3,6 @@
 // against the backend (only when "Go" is pressed), and loading/editing stock.
 
 // ⚠️ Change this to your real backend URL once deployed
-const API_BASE = "http://localhost:5000";
 
 const params = new URLSearchParams(window.location.search);
 const machineId = (params.get("machine") || "").toLowerCase();
