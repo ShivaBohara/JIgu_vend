@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Jigu Vend</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <header class="header">
+    <h1>Jigu <span>Vend</span></h1>
+    <p id="machine-label">machine: --</p>
+  </header>
+
+  <!-- ================================
+       SCREEN 1: PIN entry keypad
+       ================================ -->
+  <div id="pin-screen" class="pin-screen">
+    <p class="pin-title">Enter Admin PIN</p>
+    <p id="machine-warning" class="pin-error hidden">
+      No machine selected. Open this page as admin.html?machine=vm001
+    </p>
+    <div id="pin-display" class="pin-display"></div>
+    <p id="pin-error" class="pin-error hidden">Incorrect PIN — try again</p>
+
+    <div class="keypad">
+      <button class="key" data-key="1">1</button>
+      <button class="key" data-key="2">2</button>
+      <button class="key" data-key="3">3</button>
+      <button class="key" data-key="4">4</button>
+      <button class="key" data-key="5">5</button>
+      <button class="key" data-key="6">6</button>
+      <button class="key" data-key="7">7</button>
+      <button class="key" data-key="8">8</button>
+      <button class="key" data-key="9">9</button>
+      <button class="key key-clear" data-key="clear">Clear</button>
+      <button class="key" data-key="0">0</button>
+      <button class="key key-back" data-key="back">DEL</button>
+    </div>
+
+    <button id="go-btn" class="go-btn">Go →</button>
+  </div>
+
+  <!-- ================================
+       SCREEN 2: Stock Management (hidden until PIN is correct)
+       ================================ -->
+  <div id="stock-screen" class="stock-screen hidden">
+    <a id="back-to-products" href="#" class="back-btn">← Back to Products</a>
+    <h2 class="stock-title">Stock Management</h2>
+    <div id="stock-list"></div>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

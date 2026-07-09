@@ -1,0 +1,188 @@
+/* =====================================================
+   ADMIN PIN SCREEN
+   ===================================================== */
+.pin-screen {
+  max-width: 340px;
+  margin: 40px auto;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.pin-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.pin-display {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  letter-spacing: 10px;
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px;
+  min-height: 24px;
+  margin-bottom: 10px;
+}
+
+.pin-error {
+  color: var(--accent);
+  font-size: 13px;
+  margin-bottom: 10px;
+  font-family: var(--font-mono);
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.key {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: none;
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.key:active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.key-clear,
+.key-back {
+  background: var(--line);
+  font-size: 12px;
+}
+
+.go-btn {
+  width: 100%;
+  margin-top: 16px;
+  padding: 14px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.go-btn:disabled {
+  background: var(--line);
+  color: var(--ink-soft);
+  cursor: not-allowed;
+}
+
+/* =====================================================
+   STOCK MANAGEMENT SCREEN
+   ===================================================== */
+.stock-screen {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.stock-screen .back-btn {
+  margin-bottom: 16px;
+}
+
+.stock-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.stock-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+.stock-row img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.stock-row-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.stock-row-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.stock-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stock-control-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+
+.stock-control-line .value {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--ink);
+  min-width: 26px;
+  text-align: center;
+}
+
+.stock-control-line button {
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: var(--line);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.save-btn {
+  background: var(--ink);
+  color: var(--bg);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.save-btn.saved {
+  background: var(--stock-ok);
+}

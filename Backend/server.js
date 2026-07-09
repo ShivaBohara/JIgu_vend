@@ -36,6 +36,55 @@ app.get("/api/products/:machineId", async (req, res) => {
 });
 
 // ============================================
+// PIN verification — each machine has its own admin PIN,
+// stored ONLY in the server's .env file (never sent to the browser
+// except as a yes/no result). This is what makes it actually secure.
+// ============================================
+function isPinValid(machineId, pin) {
+  // Looks up an env var named like PIN_VM001, PIN_VM002, etc.
+  const expectedPin = process.env["PIN_" + machineId.toUpperCase()];
+  return expectedPin && pin === expectedPin;
+}
+
+// ROUTE: Check if a PIN is correct for a given machine
+// The frontend calls this first, before showing the Stock Management screen.
+app.post("/api/admin/verify-pin", (req, res) => {
+  const { machineId, pin } = req.body;
+  if (isPinValid(machineId, pin)) {
+    res.json({ valid: true });
+  } else {
+    res.status(401).json({ valid: false, error: "Incorrect PIN" });
+  }
+});
+
+// ROUTE: Update a single product's price and/or stock
+// Requires the correct PIN to be sent along with every request —
+// this is checked on the SERVER every time, not just once on login.
+app.put("/api/admin/products/:machineId/:slot", async (req, res) => {
+  const { machineId, slot } = req.params;
+  const { pin, price, stock } = req.body;
+
+  if (!isPinValid(machineId, pin)) {
+    return res.status(401).json({ error: "Incorrect PIN" });
+  }
+
+  try {
+    const updated = await Product.findOneAndUpdate(
+      { machineId, slot },
+      { $set: { price, stock } },
+      { new: true }
+    );
+    if (!updated) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+    res.json(updated);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to update product" });
+  }
+});
+
+// ============================================
 // ROUTE: Health check — just confirms the server is alive
 // Visit this in your browser to test: http://localhost:5000/api/health
 // ============================================
