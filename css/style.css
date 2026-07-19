@@ -571,3 +571,32 @@ body {
   color: var(--ink-soft);
   font-family: var(--font-mono);
 }
+
+.machine-links {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.machine-links a {
+  display: inline-block;
+  padding: 12px 24px;
+  background: #1a1a1a;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.machine-links a:hover {
+  background: #ff5c5c;
+}
+
+.machine-links a:active {
+  transform: scale(0.96);
+}
